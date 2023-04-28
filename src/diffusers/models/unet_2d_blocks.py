@@ -560,7 +560,8 @@ class UNetMidBlock2DCrossAttn(nn.Module):
                 hidden_states,
                 encoder_hidden_states=encoder_hidden_states,
                 cross_attention_kwargs=cross_attention_kwargs,
-            ).sample
+                return_dict=False,
+            )[0]
             hidden_states = resnet(hidden_states, temb)
 
         return hidden_states
@@ -868,7 +869,8 @@ class CrossAttnDownBlock2D(nn.Module):
                     hidden_states,
                     encoder_hidden_states=encoder_hidden_states,
                     cross_attention_kwargs=cross_attention_kwargs,
-                ).sample
+                    return_dict=False
+                )[0]
 
             output_states += (hidden_states,)
 
@@ -1859,7 +1861,8 @@ class CrossAttnUpBlock2D(nn.Module):
                     hidden_states,
                     encoder_hidden_states=encoder_hidden_states,
                     cross_attention_kwargs=cross_attention_kwargs,
-                ).sample
+                    return_dict=False
+                )[0]
 
         if self.upsamplers is not None:
             for upsampler in self.upsamplers:
